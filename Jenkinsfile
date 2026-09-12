@@ -17,7 +17,15 @@ pipeline {
                 withCredentials([file(credentialsId: 'my-env-file', variable: 'ENV_FILE')]) {
                     script {
                         // Replace these with your actual 5 folder/ECR repo names
-                        def services = ['malik/streaming-app-frontend', 'malik/streaming-backend-admin-service', 'malik/streaming-backend-auth-service', 'malik/streaming-backend-chat-service', 'malik/streaming-backend-streaming-service']
+                        def services = [
+                            
+                            
+                            'frontend': 'malik/streaming-app-frontend',
+                            'backend/adminService': 'malik/streaming-backend-admin-service',
+                            'backend/authService': 'malik/streaming-backend-auth-service',
+                            'backend/chatService': 'malik/streaming-backend-chat-service',
+                            'backend/streamingService': 'malik/streaming-backend-streaming-service' 
+                             ]
                         
                         for (service in services) {
                             // Copies the secure .env file into the current service's folder before building
