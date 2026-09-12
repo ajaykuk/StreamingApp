@@ -20,15 +20,14 @@ pipeline {
                         def services = [
                             
                             
-                            'StreamingApp/frontend': 'malik/streaming-app-frontend',
-                            'StreamingApp/backend/adminService': 'malik/streaming-backend-admin-service',
-                            'StreamingApp/backend/authservice': 'malik/streaming-backend-auth-service',
-                            'StreamingApp/backend/chatservice': 'malik/streaming-backend-chat-service',
-                            'StreamingApp/backend/streamingservice': 'malik/streaming-backend-streaming-service' 
+                            'frontend': 'malik/streaming-app-frontend',
+                            'backend/adminService': 'malik/streaming-backend-admin-service',
+                            'backend/authservice': 'malik/streaming-backend-auth-service',
+                            'backend/chatservice': 'malik/streaming-backend-chat-service',
+                            'backend/streamingservice': 'malik/streaming-backend-streaming-service' 
                              ]
                         
                         for (String localFolder : services.keySet()) {
-        // Fetch the ECR repo name dynamically based on the current folder
                             def ecrRepo = services[localFolder]
         
                             echo "Building local folder: ${localFolder} | Pushing to ECR: ${ecrRepo}"
