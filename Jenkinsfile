@@ -27,16 +27,18 @@ pipeline {
                             'StreamingApp/backend/streamingService': 'malik/streaming-backend-streaming-service' 
                              ]
                         
-                        for (service in services) {
-                            // Copies the secure .env file into the current service's folder before building
-                            sh "cp \${ENV_FILE} ./${service}/.env"
-                            
-                            // Builds the image for the current service
-                            sh "docker build -t ${ECR_REGISTRY}/${service}:${IMAGE_TAG} ./${service}"
-                            
-                            // Pushes the newly built image to ECR
-                            sh "docker push ${ECR_REGISTRY}/${service}:${IMAGE_TAG}"
-                        }
+                        for (String localFolder : services.keySet()) {
+        // Fetch the ECR repo name dynamically based on the current folder
+                            def ecrRepo = services[localFolder]
+        
+                            echo "Building local folder: ${localFolder} | Pushing to ECR: ${ecrRepo}"
+        
+                            sh "cp \${ENV_FILE} ./${localFolder}/.env"
+                            sh "docker build -t ${ECR_REGISTRY}/${ecrRepo}:${IMAGE_TAG} ./${localFolder}"
+        
+                            sh "docker push ${ECR_REGISTRY}/${ecrRepo}:${IMAGE_TAG}"
+                            sh "docker rmi ${ECR_REGISTRY}/${ecrRepo}:${IMAGE_TAG}"
+    }
                     }
                 }
             }
