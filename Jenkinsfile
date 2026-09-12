@@ -35,15 +35,3 @@ pipeline {
         }
     }
 }
-
-post {
-        always {
-            // Security measure: delete the copied .env files from the Jenkins workspace after the pipeline finishes (or fails)
-            script {
-                def services = ['malik/streaming-app-frontend', 'malik/streaming-backend-admin-service', 'malik/streaming-backend-auth-service', 'malik/streaming-backend-chat-service', 'malik/streaming-backend-streaming-service']
-                for (String service : services) {
-                    sh "rm -f ./${service}/.env"
-                }
-            }
-        }
-    }
