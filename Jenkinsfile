@@ -20,11 +20,11 @@ pipeline {
                         def services = [
                             
                             
-                            'frontend': 'malik/streaming-app-frontend',
-                            'backend/adminService': 'malik/streaming-backend-admin-service',
-                            'backend/authService': 'malik/streaming-backend-auth-service',
-                            'backend/chatService': 'malik/streaming-backend-chat-service',
-                            'backend/streamingService': 'malik/streaming-backend-streaming-service' 
+                            'StreamingApp/frontend': 'malik/streaming-app-frontend',
+                            'StreamingApp/backend/adminService': 'malik/streaming-backend-admin-service',
+                            'StreamingApp/backend/authService': 'malik/streaming-backend-auth-service',
+                            'StreamingApp/backend/chatService': 'malik/streaming-backend-chat-service',
+                            'StreamingApp/backend/streamingService': 'malik/streaming-backend-streaming-service' 
                              ]
                         
                         for (service in services) {
