@@ -1,5 +1,16 @@
 pipeline {
     agent any
+
+    options {
+        skipDefaultCheckout(false)
+    }
+    stages {
+        stage('Clean Workspace') {
+            steps {
+                cleanWs()
+            }
+        }
+    }
     environment {
         AWS_REGION = 'us-east-1' 
         ECR_REGISTRY = '490600801130.dkr.ecr.us-east-1.amazonaws.com'
