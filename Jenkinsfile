@@ -15,6 +15,7 @@ pipeline {
         stage('Clean Workspace') {
             steps {
                 cleanWs()
+                checkout scm // Pulls the repository code back into the clean workspace
             }
         }
 
