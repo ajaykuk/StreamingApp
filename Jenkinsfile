@@ -21,10 +21,10 @@ pipeline {
                             
                             
                             'frontend': 'malik/streaming-app-frontend',
-                            'backend/adminService': 'malik/streaming-backend-admin-service',
-                            'backend/authService': 'malik/streaming-backend-auth-service',
-                            'backend/chatService': 'malik/streaming-backend-chat-service',
-                            'backend/streamingService': 'malik/streaming-backend-streaming-service' 
+                            'adminService': 'malik/streaming-backend-admin-service',
+                            'authService': 'malik/streaming-backend-auth-service',
+                            'chatService': 'malik/streaming-backend-chat-service',
+                            'streamingService': 'malik/streaming-backend-streaming-service' 
                              ]
                         
                         for (String localFolder : services.keySet()) {
