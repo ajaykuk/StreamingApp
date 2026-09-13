@@ -4,6 +4,11 @@ pipeline {
     options {
         skipDefaultCheckout(false)
     }
+  environment {
+        AWS_REGION = 'us-east-1' 
+        ECR_REGISTRY = '490600801130.dkr.ecr.us-east-1.amazonaws.com'
+        IMAGE_TAG = "${env.BUILD_ID}"
+    }
     stages 
         stage('Clean Workspace') {
             steps {
@@ -46,11 +51,7 @@ pipeline {
     }
 
 
-    environment {
-        AWS_REGION = 'us-east-1' 
-        ECR_REGISTRY = '490600801130.dkr.ecr.us-east-1.amazonaws.com'
-        IMAGE_TAG = "${env.BUILD_ID}"
-    }
+  
     stages {
         stage('ECR Login') {
             steps {
@@ -89,5 +90,4 @@ pipeline {
             }
         }
     }
-}
 }
