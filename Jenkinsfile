@@ -58,5 +58,16 @@ pipeline {
                 }
             }
         }
+
+        stage('Deploy to EKS') {
+            steps {
+                script {
+                  // Update kubeconfig so Jenkins has access to the cluster
+                    sh "aws eks update-kubeconfig --region ${AWS_REGION} --name my-eks-cluster"
+                    
+                    // Deploy the new images using the Helm chart
+                    sh "helm upgrade --install streaming-app ./streaming-mern-stack --set imageTag=${IMAGE_TAG}"                }
+            }
+        }
     }
 }

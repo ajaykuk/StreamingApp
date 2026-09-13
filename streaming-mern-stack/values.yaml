@@ -1,0 +1,37 @@
+# ECR Registry configuration
+registry: 490600801130.dkr.ecr.us-east-1.amazonaws.com
+imageTag: latest # You will override this during deployment
+
+# Define all your microservices
+services:
+  frontend:
+    repository: malik/streaming-app-frontend
+    port: 3000
+    type: LoadBalancer # Exposes the frontend to the internet
+  
+  auth-service:
+    repository: malik/streaming-backend-auth-service
+    port: 3001
+    type: ClusterIP    # Internal only
+
+  # (Add the rest of your backend services here)
+
+  admin-service:
+    repository: malik/streaming-backend-admin-service
+    port: 3003
+    type: ClusterIP  
+
+  chat-service:
+    repository: malik/streaming-backend-chat-service
+    port: 3004
+    type: ClusterIP  
+
+  streaming-service:
+    repository: malik/streaming-backend-streaming-service
+    port: 3002
+    type: ClusterIP  
+
+# Database
+mongodb:
+  image: mongo:latest
+  port: 27017
