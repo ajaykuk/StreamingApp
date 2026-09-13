@@ -31,27 +31,30 @@ pipeline {
         
         stage('Build and Push Images') {
             steps {
-                // Injects the .env file securely from Jenkins credentials
-                withCredentials([file(credentialsId: 'my-env-file', variable: 'ENV_FILE')]) {
-                    script {
-                        // Replace these with your actual 5 folder/ECR repo names
-                        def services = [
-                            'frontend': 'malik/streaming-app-frontend',
-                            'backend/adminService': 'malik/streaming-backend-admin-service',
-                            'backend/authService': 'malik/streaming-backend-auth-service',
-                            'backend/chatService': 'malik/streaming-backend-chat-service',
-                            'backend/streamingService': 'malik/streaming-backend-streaming-service' 
-                        ]
-                        
-                        for (String localFolder : services.keySet()) {
-                            def ecrRepo = services[localFolder]
-        
-                            echo "Building local folder: ${localFolder} | Pushing to ECR: ${ecrRepo}"
-        
+                script {
+                    // Map each folder to its ECR repo and its specific Jenkins Secret File ID
+                    def services = [
+                        'frontend':               [repo: 'malik/streaming-app-frontend',             credId: 'env-frontend'],
+                        'backend/adminService':   [repo: 'malik/streaming-backend-admin-service',    credId: 'env-admin'],
+                        'backend/authService':    [repo: 'malik/streaming-backend-auth-service',     credId: 'env-auth'],
+                        'backend/chatService':    [repo: 'malik/streaming-backend-chat-service',     credId: 'env-chat'],
+                        'backend/streamingService':[repo: 'malik/streaming-backend-streaming-service', credId: 'env-streaming']
+                    ]
+                    
+                    for (String localFolder : services.keySet()) {
+                        def ecrRepo = services[localFolder].repo
+                        def envCredId = services[localFolder].credId
+    
+                        echo "Building local folder: ${localFolder} | Pushing to ECR: ${ecrRepo} | Env ID: ${envCredId}"
+    
+                        // Pull the specific .env file for THIS service inside the loop
+                        withCredentials([file(credentialsId: envCredId, variable: 'ENV_FILE')]) {
                             sh "cp \${ENV_FILE} ./${localFolder}/.env"
+                            
                             sh "docker build -t ${ECR_REGISTRY}/${ecrRepo}:${IMAGE_TAG} ./${localFolder}"
-        
                             sh "docker push ${ECR_REGISTRY}/${ecrRepo}:${IMAGE_TAG}"
+                            
+                            // Clean up the local image to save disk space
                             sh "docker rmi ${ECR_REGISTRY}/${ecrRepo}:${IMAGE_TAG}"
                         }
                     }
