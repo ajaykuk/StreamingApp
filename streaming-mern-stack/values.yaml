@@ -6,7 +6,7 @@ imageTag: latest # You will override this during deployment
 services:
   frontend:
     repository: malik/streaming-app-frontend
-    port: 3000
+    port: 80
     type: LoadBalancer # Exposes the frontend to the internet
   
   auth-service:
