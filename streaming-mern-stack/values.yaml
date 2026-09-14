@@ -10,14 +10,14 @@ services:
     type: ClusterIP  # Exposes the frontend to the internet
   
   auth-service:
-    replicaCount: 2
+    
     repository: malik/streaming-backend-auth-service
     port: 3001
     type: ClusterIP    # Internal only
 
   # (Add the rest of your backend services here)
 
-  admin-service:
+  admin-service: 
     repository: malik/streaming-backend-admin-service
     port: 3003
     type: ClusterIP  
@@ -28,6 +28,7 @@ services:
     type: ClusterIP  
 
   streaming-service:
+    replicaCount: 2
     repository: malik/streaming-backend-streaming-service
     port: 3002
     type: ClusterIP  
