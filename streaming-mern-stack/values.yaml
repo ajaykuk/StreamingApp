@@ -7,7 +7,7 @@ services:
   frontend:
     repository: malik/streaming-app-frontend
     port: 80
-    type: LoadBalancer # Exposes the frontend to the internet
+    type: ClusterIP  # Exposes the frontend to the internet
   
   auth-service:
     repository: malik/streaming-backend-auth-service
