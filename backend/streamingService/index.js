@@ -38,6 +38,9 @@ const streamingRoutes = require('./routes/streaming.route');
 app.use('/api/health', healthRoutes);
 app.use('/api/streaming', streamingRoutes);
 
+app.get('/api/health', (req, res) => {
+    res.status(200).send('Streaming Service is healthy');
+});
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
