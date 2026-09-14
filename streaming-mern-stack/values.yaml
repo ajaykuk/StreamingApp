@@ -28,7 +28,6 @@ services:
     type: ClusterIP  
 
   streaming-service:
-    replicaCount: 2
     repository: malik/streaming-backend-streaming-service
     port: 3002
     type: ClusterIP  
