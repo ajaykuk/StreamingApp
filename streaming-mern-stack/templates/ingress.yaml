@@ -15,7 +15,7 @@ spec:
             pathType: ImplementationSpecific
             backend:
               service:
-                name: auth-service
+                name: auth-service-svc
                 port:
                   number: 80
 
@@ -24,7 +24,7 @@ spec:
             pathType: ImplementationSpecific
             backend:
               service:
-                name: admin-service
+                name: admin-service-svc
                 port:
                   number: 80
 
@@ -33,7 +33,7 @@ spec:
             pathType: ImplementationSpecific
             backend:
               service:
-                name: chat-service
+                name: chat-service-svc
                 port:
                   number: 80
 
@@ -42,7 +42,7 @@ spec:
             pathType: ImplementationSpecific
             backend:
               service:
-                name: streaming-service
+                name: streaming-service-svc
                 port:
                   number: 80
 
@@ -51,6 +51,6 @@ spec:
             pathType: ImplementationSpecific
             backend:
               service:
-                name: frontend
+                name: frontend-svc
                 port:
                   number: 80
