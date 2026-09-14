@@ -1,0 +1,57 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: streaming-app-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    # This strips the prefix path before sending it to your backend
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+    - http:
+        paths:
+          # 1. Route /auth traffic to the Auth Service
+          - path: /auth(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: auth-service
+                port:
+                  number: 80
+
+          # 2. Route /admin traffic to the Admin Service
+          - path: /admin(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: admin-service
+                port:
+                  number: 80
+          # 3. Route /chat traffic to the Chat Service
+          - path: /chat(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: chat-service
+                port:
+                  number: 80
+          # 4. Route /streaming traffic to the Streaming Service
+          - path: /streaming(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: streaming-service
+                port:
+                  number: 80
+
+          # (Add chat and streaming services here following the same pattern)
+
+          # 3. Route everything else (/) to the React Frontend
+          # Note: The frontend must be at the BOTTOM of the list as a catch-all
+          - path: /()(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: 80
