@@ -37,6 +37,10 @@ const userRoute = require('./routes/user.route');
 app.use('/health', healthCheckRoute);
 app.use('/api', userRoute); // Changed from /apiv1 to /api
 
+app.get('/api/health', (req, res) => {
+    res.status(200).send('Auth Service is healthy');
+});
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
