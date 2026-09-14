@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: {{ $name }}
 spec:
-  replicas: 1
+  replicas: {{ $svc.replicaCount | default 1 }}
   selector:
     matchLabels:
       app: {{ $name }}
