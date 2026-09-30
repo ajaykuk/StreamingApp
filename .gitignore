@@ -131,3 +131,6 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+valuesoldNA.yaml
+~$reaming-app-documentation.docx
+.DS_Store
